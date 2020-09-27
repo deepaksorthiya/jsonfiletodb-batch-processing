@@ -38,6 +38,9 @@ public class JsonToDbBatchJobConfig {
 	@Autowired
 	public CustomerItemWriterListener customerItemWriterListener;
 
+	@Autowired
+	public CustomerItemProcessorListener customerItemProcessorListener;
+
 	/**
 	 * json file to db job
 	 * 
@@ -106,6 +109,7 @@ public class JsonToDbBatchJobConfig {
 				.reader(customerItemReader())
 				.listener(customerItemReaderListener)
 				.processor(customerItemProcessor())
+				.listener(customerItemProcessorListener)
 				.writer(customerItemWriter)
 				.listener(customerItemWriterListener)
 				.listener(customerChunkListener)
