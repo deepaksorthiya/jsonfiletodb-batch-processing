@@ -33,4 +33,10 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 					.forEach(person -> log.info("Found <" + person + "> in the database."));
 		}
 	}
+
+	@Override
+	public void beforeJob(JobExecution jobExecution) {
+		log.info("before starting job");
+	}
+
 }

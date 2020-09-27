@@ -29,6 +29,15 @@ public class JsonToDbBatchJobConfig {
 	@Autowired
 	public StepBuilderFactory stepBuilderFactory;
 
+	@Autowired
+	public CustomerChunkListener customerChunkListener;
+
+	@Autowired
+	public CustomerItemReaderListener customerItemReaderListener;
+
+	@Autowired
+	public CustomerItemWriterListener customerItemWriterListener;
+
 	/**
 	 * json file to db job
 	 * 
@@ -93,10 +102,14 @@ public class JsonToDbBatchJobConfig {
 	public Step step1(JdbcBatchItemWriter<Customer> customerItemWriter) {
 		// @formatter:off
 		return stepBuilderFactory.get("step1")
-				.<Customer, Customer>chunk(3)
+				.<Customer, Customer>chunk(2)
 				.reader(customerItemReader())
+				.listener(customerItemReaderListener)
 				.processor(customerItemProcessor())
-				.writer(customerItemWriter).build();
+				.writer(customerItemWriter)
+				.listener(customerItemWriterListener)
+				.listener(customerChunkListener)
+				.build();
 		// @formatter:on
 	}
 }
